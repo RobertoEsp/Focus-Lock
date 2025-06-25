@@ -411,4 +411,24 @@ input[type="checkbox"] {
 #site-list {
   flex: 1;
   min-height: 0;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+#site-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+#site-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+#site-list::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+#site-list::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
 }
