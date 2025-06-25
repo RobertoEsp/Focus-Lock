@@ -173,31 +173,12 @@ body {
 #settings-interface.active {
   display: flex;
   flex-direction: column;
-}
-
-.settings-header h2 {
-  margin: 0 0 20px 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: #1d1d1f;
+  overflow: hidden;
 }
 
 .toggle-section {
   margin-bottom: 15px;
   padding: 10px;
-}
-
-.toggle-label {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
-}
-
-.toggle-text {
-  font-size: 16px;
-  font-weight: 500;
-  color: white;
 }
 
 .focus-toggle-btn {
@@ -223,30 +204,35 @@ body {
 }
 
 .theme-section {
-  margin-bottom: 15px;
-  padding: 10px;
+  margin-bottom: 10px;
+  padding: 5px;
 }
 
-.theme-section h4 {
-  margin: 0 0 10px 0;
-  font-size: 14px;
-  font-weight: 600;
+.theme-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.theme-label {
+  font-size: 12px;
+  font-weight: 500;
   color: white;
-  text-align: center;
 }
 
 .theme-select {
   background: var(--accent);
   color: white;
   border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 8px 12px;
-  font-size: 14px;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 10px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  width: 100%;
-  text-align: center;
+  width: auto;
+  min-width: 80px;
 }
 
 .theme-select:hover {
