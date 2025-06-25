@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "Pomodoro Site Blocker",
+  "version": "2.0",
+  "description": "Blocks sites during Pomodoro focus time, allows during breaks.",
+  "permissions": [
+    "storage",
+    "webRequest",
+    "webRequestBlocking",
+    "*://*/*"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": "icons/icon-16.png"
+  },
+  "icons": {
+    "48": "icons/icon-16.png"
+  }
+}
