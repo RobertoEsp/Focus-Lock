@@ -105,7 +105,7 @@ function renderSites() {
     };
 
     entry.appendChild(removeBtn);
-    siteList.appendChild(entry);
+    siteList.insertBefore(entry, siteList.firstChild);
   }
 }
 

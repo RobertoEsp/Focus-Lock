@@ -1,4 +1,4 @@
-const redirectUrl = "https://maaslalani.com/JustFocus/quote/";
+const redirectUrl = "https://robertoesparza.dev/focusflow/";
 
 let focusMode = false;
 let startTime = null;
