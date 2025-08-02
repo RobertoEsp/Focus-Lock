@@ -1,4 +1,4 @@
-const redirectUrl = "https://robertoesparza.dev/focusflow/";
+const redirectUrl = "https://robertoesparza.dev/focuslock/";
 
 let focusMode = false;
 let startTime = null;
