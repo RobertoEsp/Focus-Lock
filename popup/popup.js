@@ -6,11 +6,13 @@ const addSiteButton = document.getElementById("add-site");
 const focusInterface = document.getElementById("focus-interface");
 const settingsInterface = document.getElementById("settings-interface");
 const exitFocusButton = document.getElementById("exit-focus");
+const themeToggle = document.getElementById("theme-toggle");
+const themeIcon = document.getElementById("theme-icon");
 
 let focusMode = false;
 let startTime = null;
 let blockedSites = {};
-let currentTheme = 'green'; // Default theme
+let currentTheme = 'dark'; // Default theme
 
 function formatTime(ms) {
   const totalSeconds = Math.floor(ms / 1000);
@@ -36,46 +38,21 @@ function updateTimer() {
 }
 
 function applyTheme(theme) {
-  const root = document.documentElement;
+  const body = document.body;
   
-  switch(theme) {
-    case 'purple':
-      root.style.setProperty('--primary', 'var(--purple-primary)');
-      root.style.setProperty('--secondary', 'var(--purple-secondary)');
-      root.style.setProperty('--accent', 'var(--purple-accent)');
-      root.style.setProperty('--accent-hover', 'var(--purple-accent-hover)');
-      root.style.setProperty('--accent-active', 'var(--purple-accent-active)');
-      root.style.setProperty('--border', 'var(--purple-border)');
-      root.style.setProperty('--border-active', 'var(--purple-border-active)');
-      root.style.setProperty('--input-bg', 'var(--purple-input-bg)');
-      root.style.setProperty('--placeholder', 'var(--purple-placeholder)');
-      break;
-    case 'blue':
-      root.style.setProperty('--primary', 'var(--blue-primary)');
-      root.style.setProperty('--secondary', 'var(--blue-secondary)');
-      root.style.setProperty('--accent', 'var(--blue-accent)');
-      root.style.setProperty('--accent-hover', 'var(--blue-accent-hover)');
-      root.style.setProperty('--accent-active', 'var(--blue-accent-active)');
-      root.style.setProperty('--border', 'var(--blue-border)');
-      root.style.setProperty('--border-active', 'var(--blue-border-active)');
-      root.style.setProperty('--input-bg', 'var(--blue-input-bg)');
-      root.style.setProperty('--placeholder', 'var(--blue-placeholder)');
-      break;
-    case 'green':
-      root.style.setProperty('--primary', 'var(--green-primary)');
-      root.style.setProperty('--secondary', 'var(--green-secondary)');
-      root.style.setProperty('--accent', 'var(--green-accent)');
-      root.style.setProperty('--accent-hover', 'var(--green-accent-hover)');
-      root.style.setProperty('--accent-active', 'var(--green-accent-active)');
-      root.style.setProperty('--border', 'var(--green-border)');
-      root.style.setProperty('--border-active', 'var(--green-border-active)');
-      root.style.setProperty('--input-bg', 'var(--green-input-bg)');
-      root.style.setProperty('--placeholder', 'var(--green-placeholder)');
-      break;
+  // Remove existing theme classes
+  body.classList.remove('light-theme', 'dark-theme');
+  
+  // Apply new theme
+  if (theme === 'light') {
+    body.classList.add('light-theme');
+    themeIcon.textContent = '🌙'; // Moon emoji for light theme
+  } else {
+    body.classList.add('dark-theme');
+    themeIcon.textContent = '☀️'; // Sun emoji for dark theme
   }
   
-  // Update theme select value
-  document.getElementById('theme-select').value = theme;
+  currentTheme = theme;
 }
 
 function switchInterface() {
@@ -110,17 +87,18 @@ function renderSites() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  browser.storage.local.get(["focusMode", "startTime", "blockedSites", "theme"], (res) => {
+  // browser.storage.local.get(["focusMode", "startTime", "blockedSites", "theme"], (res) => {
+    res = {}
     focusMode = res.focusMode || false;
     startTime = res.startTime || null;
     blockedSites = res.blockedSites || {};
-    currentTheme = res.theme || 'green';
+    currentTheme = res.theme || 'dark';
 
     renderSites();
     updateTimer();
     switchInterface();
     applyTheme(currentTheme);
-  });
+  // });
 
   toggle.addEventListener("click", () => {
     focusMode = !focusMode;
@@ -165,21 +143,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Theme button click handlers
-  document.querySelectorAll('.theme-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const theme = btn.getAttribute('data-theme');
-      currentTheme = theme;
-      applyTheme(theme);
-      browser.storage.local.set({ theme });
-    });
-  });
-
-  // Theme select change handler
-  document.getElementById('theme-select').addEventListener('change', (e) => {
-    const theme = e.target.value;
-    currentTheme = theme;
-    applyTheme(theme);
-    browser.storage.local.set({ theme });
+  // Theme toggle button handler
+  themeToggle.addEventListener('click', () => {
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(newTheme);
+    browser.storage.local.set({ theme: newTheme });
   });
 });
