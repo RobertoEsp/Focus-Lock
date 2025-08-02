@@ -11,7 +11,12 @@ const themeIcon = document.getElementById("theme-icon");
 
 let focusMode = false;
 let startTime = null;
-let blockedSites = {};
+let blockedSites = {
+  'tiktok.com': true,
+  'instagram.com': true,
+  'x.com': true,
+  'facebook.com': true
+};
 let currentTheme = 'dark'; // Default theme
 
 function formatTime(ms) {
@@ -87,18 +92,22 @@ function renderSites() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // browser.storage.local.get(["focusMode", "startTime", "blockedSites", "theme"], (res) => {
-    res = {}
+  browser.storage.local.get(["focusMode", "startTime", "blockedSites", "theme"], (res) => {
     focusMode = res.focusMode || false;
     startTime = res.startTime || null;
-    blockedSites = res.blockedSites || {};
+    blockedSites = res.blockedSites || {
+      'tiktok.com': true,
+      'instagram.com': true,
+      'x.com': true,
+      'facebook.com': true
+    };
     currentTheme = res.theme || 'dark';
 
     renderSites();
     updateTimer();
     switchInterface();
     applyTheme(currentTheme);
-  // });
+  });
 
   toggle.addEventListener("click", () => {
     focusMode = !focusMode;
