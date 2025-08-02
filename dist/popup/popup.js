@@ -11,7 +11,7 @@ const themeIcon = document.getElementById("theme-icon");
 
 let focusMode = false;
 let startTime = null;
-let blockedSites = {
+let defaultBlockedSites = {
   'tiktok.com': true,
   'instagram.com': true,
   'x.com': true,
@@ -95,13 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
   browser.storage.local.get(["focusMode", "startTime", "blockedSites", "theme"], (res) => {
     focusMode = res.focusMode || false;
     startTime = res.startTime || null;
-    blockedSites = res.blockedSites || {
-      'tiktok.com': true,
-      'instagram.com': true,
-      'x.com': true,
-      'facebook.com': true
-    };
+    blockedSites = res.blockedSites || { };
     currentTheme = res.theme || 'dark';
+
+    if (Object.keys(blockedSites).length === 0) {
+      blockedSites = defaultBlockedSites;
+      browser.storage.local.set({ blockedSites });
+    }
 
     renderSites();
     updateTimer();

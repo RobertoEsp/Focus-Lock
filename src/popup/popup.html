@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <!-- Base Layout -->
+  <div class="base-layout">
+    <!-- Header -->
+    <div class="focus-header">
+      <h2>Focus Lock</h2>
+    </div>
+
+    <!-- Toggle Content Section -->
+    <div class="content-section">
+      <!-- Focus Mode Interface -->
+      <div id="focus-interface" class="interface">
+        <div class="timer-container">
+          <div class="timer-label">Focus Time</div>
+          <div class="timer" id="timer">00:00</div>
+        </div>
+        <div class="exit-container">
+          <button id="exit-focus" class="exit-btn">Exit Focus</button>
+        </div>
+      </div>
+
+      <!-- Settings Interface -->
+      <div id="settings-interface" class="interface">
+        <div class="toggle-section">
+          <button id="focus-toggle" class="focus-toggle-btn">Enable Focus Mode</button>
+        </div>
+
+        <div class="focus-stats">
+          <div class="sites-section">
+            <h4>Blocked Sites</h4>
+            <div class="add-site-container">
+              <input type="text" id="new-site" placeholder="e.g. youtube.com">
+              <button id="add-site">Add</button>
+            </div>
+            <div id="site-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <div class="theme-section">
+      <button id="theme-toggle" class="theme-toggle-btn">
+        <span id="theme-icon">☀️</span>
+      </button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

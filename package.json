@@ -1,0 +1,24 @@
+{
+  "name": "focus-lock-extension",
+  "version": "2.0.0",
+  "description": "Focus Lock helps you stay focused by blocking distracting sites during focus time.",
+  "main": "build.js",
+  "scripts": {
+    "build": "node build.js",
+    "clean": "rm -rf dist",
+    "zip": "npm run build && cd dist && zip -r ../focus-lock-extension.zip .",
+    "dev": "echo 'For development, edit files in src/ folder and run npm run build to test'"
+  },
+  "keywords": [
+    "firefox",
+    "extension",
+    "focus",
+    "productivity",
+    "blocking"
+  ],
+  "author": "Roberto Esparza",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 
