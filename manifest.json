@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "FocusFlow",
+  "name": "Focus Lock",
   "version": "2.0",
-  "description": "FocusFlow helps you stay focused by blocking distracting sites during focus time.",
+  "description": "Focus Lock helps you stay focused by blocking distracting sites during focus time.",
   "permissions": [
     "storage",
     "webRequest",

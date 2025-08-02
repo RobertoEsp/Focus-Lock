@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generate FocusFlow Icons</title>
+    <title>Generate Focus Lock Icons</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -43,7 +43,7 @@
     </style>
 </head>
 <body>
-    <h1>FocusFlow Extension Icons</h1>
+    <h1>Focus Lock Extension Icons</h1>
     <p>Click the download buttons to save each icon size:</p>
     
     <div id="icon-container"></div>
@@ -57,28 +57,78 @@
             canvas.height = size;
             const ctx = canvas.getContext('2d');
             
-            // Create gradient background
-            const gradient = ctx.createLinearGradient(0, 0, size, size);
-            gradient.addColorStop(0, '#667eea');
-            gradient.addColorStop(1, '#764ba2');
+            // Draw black square background
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, size, size);
             
-            // Draw background circle
-            ctx.fillStyle = gradient;
+            // Draw white rectangle with rounded corners
+            ctx.fillStyle = '#ffffff';
+            
+            const rectWidth = size * 0.6;
+            const rectHeight = size * 0.45;
+            const circleRadius = size * 0.2;
+            
+            // Calculate the total height of the group (rectangle + half circle)
+            const groupHeight = rectHeight + circleRadius/2;
+            
+            // Center the entire group, but move it down even more
+            const groupY = size/2 - groupHeight/2 + size * 0.15;
+            const rectX = size/2 - rectWidth/2;
+            const rectY = groupY + circleRadius/4; // Rectangle positioned closer to the half circle
+            const cornerRadius = size * 0.1;
+            
             ctx.beginPath();
-            ctx.arc(size/2, size/2, size/2 - 2, 0, 2 * Math.PI);
+            ctx.moveTo(rectX, rectY); // Sharp top-left corner
+            ctx.lineTo(rectX + rectWidth, rectY); // Sharp top-right corner
+            ctx.lineTo(rectX + rectWidth, rectY + rectHeight - cornerRadius);
+            ctx.quadraticCurveTo(rectX + rectWidth, rectY + rectHeight, rectX + rectWidth - cornerRadius, rectY + rectHeight);
+            ctx.lineTo(rectX + cornerRadius, rectY + rectHeight);
+            ctx.quadraticCurveTo(rectX, rectY + rectHeight, rectX, rectY + rectHeight - cornerRadius);
+            ctx.lineTo(rectX, rectY);
+            ctx.closePath();
             ctx.fill();
             
-            // Draw white border
+            // Draw thick outline of lower half circle above the rectangle
             ctx.strokeStyle = '#ffffff';
-            ctx.lineWidth = Math.max(1, size/64);
+            ctx.lineWidth = size * 0.06; // Thick line
+            ctx.beginPath();
+            const circleX = size/2;
+            const circleY = groupY; // Position at the top of the group
+            ctx.arc(circleX, circleY, circleRadius, Math.PI, 2 * Math.PI, false); // Lower half circle
             ctx.stroke();
             
-            // Draw "FF" text
+            return canvas;
+        }
+        
+        function createIcon2(size) {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            // Draw black square background
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Draw white rectangle with rounded bottom corners
             ctx.fillStyle = '#ffffff';
-            ctx.font = `bold ${size * 0.44}px Arial`;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.fillText('FF', size/2, size/2 + size * 0.05);
+            ctx.beginPath();
+            ctx.moveTo(25.6, 54.4);
+            ctx.lineTo(102.4, 54.4);
+            ctx.lineTo(102.4, 99.2);
+            ctx.quadraticCurveTo(102.4, 112, 89.6, 112);
+            ctx.lineTo(38.4, 112);
+            ctx.quadraticCurveTo(25.6, 112, 25.6, 99.2);
+            ctx.lineTo(25.6, 54.4);
+            ctx.closePath();
+            ctx.fill();
+            
+            // Draw thick outline of lower half circle above the rectangle
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 7.68;
+            ctx.beginPath();
+            ctx.arc(64, 48, 25.6, Math.PI, 2 * Math.PI, false);
+            ctx.stroke();
             
             return canvas;
         }
@@ -98,7 +148,7 @@
             const title = document.createElement('h3');
             title.textContent = `${size}x${size}`;
             
-            const canvas = createIcon(size);
+            const canvas = createIcon2(size);
             
             const downloadBtn = document.createElement('a');
             downloadBtn.className = 'download-btn';
